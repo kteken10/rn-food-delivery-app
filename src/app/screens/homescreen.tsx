@@ -1,14 +1,14 @@
 import React from 'react';
 import { FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import CategoryCard from '@/components/category_card';
-import ProductCard from '@/components/product_card';
-import LocationSelector from '@/components/location_selector';
+import CategoryCard from '@/components/category-card';
+import ProductCard from '@/components/product-card';
+import LocationSelector from '@/components/location-selector';
 import { Text, View, Image, Button  } from '@/components/ui';
 import { SearchStatus, ShoppingCart } from 'iconsax-react-nativejs';
 import colors from '../../components/ui/colors'; 
-import DailyPromoCard from '@/components/daily_promo_cart';
-import RecommandedCard from '@/components/recomanded_card';
+import DailyPromoCard from '@/components/daily-promo-cart.tsx';
+import RecommandedCard from '@/components/recomanded-card';
 
 export default function HomeScreen() {
   const categories = ['Burger', 'Pizza', 'Thai', 'Sushi'];
