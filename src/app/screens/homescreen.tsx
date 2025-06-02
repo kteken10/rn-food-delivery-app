@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import CategoryCard from '@/components/category-card';
 import ProductCard from '@/components/product-card';
@@ -21,6 +21,7 @@ export default function HomeScreen() {
   const recommandedProducts = [
     { name: 'Pizza Margherita', rating: 4.9, price: '$8.00', image: require('../../../assets/burger.png') },
     { name: 'Sushi Deluxe', rating: 4.7, price: '$12.00', image: require('../../../assets/burger.png') },
+     
   ];
 
   return (
@@ -35,11 +36,14 @@ export default function HomeScreen() {
         </View>
         <LocationSelector/>
       </View>
+
+      <ScrollView>
       <View className='px-2 mb-8'>
         <FlatList
           data={products}
           keyExtractor={(_, i) => i.toString()}
           renderItem={({ item }) => <ProductCard {...item} />}
+          
           numColumns={2}
           columnWrapperStyle={{ justifyContent: 'space-between' }}
           showsVerticalScrollIndicator={false}
@@ -47,15 +51,18 @@ export default function HomeScreen() {
           ListHeaderComponent={
             <>
               <DailyPromoCard />
-              <FlatList
+              <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                data={categories}
-                keyExtractor={(item) => item}
-                renderItem={({ item }) => <CategoryCard name={item} />}
-                contentContainerStyle={{ marginTop: 16}}
-                scrollEnabled={false}
-              />
+                contentContainerStyle={{ marginTop: 16 }}
+                style={{ flexGrow: 0 }}
+              >
+               
+                  {categories.map((item) => (
+                    <CategoryCard key={item} name={item} />
+                  ))}
+              
+              </ScrollView>
               <View className="flex-row items-center justify-between mt-4  mx-4 ">
                 <Text className="text-xl font-bold mb-2">Grab Coffee And Tea</Text>
                 <Text className="text-primary-400">See All</Text>
@@ -70,17 +77,26 @@ export default function HomeScreen() {
       </View>
 
       {/* Ajout des cartes recommandées juste en dessous du titre */}
-      <View className="flex-row mx-4">
-        {recommandedProducts.map((item, idx) => (
-          <RecommandedCard
-            key={idx}
-            name={item.name}
-            rating={item.rating}
-            price={item.price}
-            image={item.image}
-          />
-        ))}
-      </View>
+      <ScrollView
+        horizontal={false}
+        showsHorizontalScrollIndicator={false}
+        className='flex-1'
+      
+       
+      >
+     
+          {recommandedProducts.map((item, idx) => (
+            <RecommandedCard
+              key={idx}
+              name={item.name}
+              rating={item.rating}
+              price={item.price}
+              image={item.image}
+            />
+          ))}
+      
+      </ScrollView>
+      </ScrollView>
     </View>
   );
 }

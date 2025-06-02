@@ -13,7 +13,7 @@ interface RecommandedCardProps {
 
 export default function RecommandedCard({ name,  rating, price, image }: RecommandedCardProps) {
   return (
-    <View className="bg-white rounded-2xl p-4 mb-4 shadow-sm shadow-black/5  mx-2 flex-1">
+    <View className="bg-white rounded-2xl flex-1 p-4 mb-4   mx-2 ">
       <Image 
         source={image} 
         className="w-full h-24 object-contain" 
