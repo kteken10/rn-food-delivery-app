@@ -14,7 +14,7 @@ import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { APIProvider } from '@/api';
 import { hydrateAuth, loadSelectedTheme } from '@/lib';
 import { useThemeConfig } from '@/lib/use-theme-config';
-
+import { Provider as PaperProvider } from 'react-native-paper';
 export { ErrorBoundary } from 'expo-router';
 
 export const unstable_settings = {
@@ -34,10 +34,13 @@ SplashScreen.setOptions({
 export default function RootLayout() {
   return (
     <Providers>
-      <Stack>
-        <Stack.Screen name="bottom_nav" options={{ headerShown: false }} />
-       
-      </Stack>
+      <PaperProvider>
+        {/* The Stack component is used to define the navigation structure */}
+        <Stack>
+          <Stack.Screen name="bottom_nav" options={{ headerShown: false }} />
+
+        </Stack>
+      </PaperProvider>
     </Providers>
   );
 }

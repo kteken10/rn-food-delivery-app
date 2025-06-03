@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, ScrollView } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+
 import CategoryCard from '@/components/category-card';
 import ProductCard from '@/components/product-card';
 import LocationSelector from '@/components/location-selector';
@@ -72,7 +72,7 @@ export default function HomeScreen() {
           />
         </View>
 
-        <View className='mx-4'>
+        <View className='mx-4 mb-4'>
           <Text className='text-xl font-bold'>Recommanded</Text>
         </View>
 
@@ -92,6 +92,7 @@ export default function HomeScreen() {
               rating={item.rating}
               price={item.price}
               image={item.image}
+              adress={item.adress}
             />
           ))}
 

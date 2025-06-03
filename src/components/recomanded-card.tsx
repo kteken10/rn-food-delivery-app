@@ -22,7 +22,7 @@ export default function RecommandedCard({ name, rating, price, image, adress }: 
         />
         <View className="pl-4 flex-1">
 
-          <View className='flex-row justify-between'>   <Text className="font-bold my-1 text-lg">{name}</Text>
+          <View className='flex-row justify-between items-center'>   <Text className="font-bold my-1 text-lg">{name}</Text>
 
 
             <View className='ml-2 flex-row  h-7 border border-neutral-400 px-2 rounded-full items-center '>
@@ -36,7 +36,7 @@ export default function RecommandedCard({ name, rating, price, image, adress }: 
 
 
           <View className="flex-row items-center justify-between mt-2">
-            <Text className="font-bold text-neutral-900">{adress}</Text>
+            <Text className="font-bold text-neutral-400">{adress}</Text>
 
           </View>
 
