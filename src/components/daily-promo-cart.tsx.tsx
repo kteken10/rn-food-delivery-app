@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, Image, Button } from '@/components/ui';
+import { View, Text, Image } from '@/components/ui';
+import { Button } from './ui/button';
 
 export default function DailyPromoCard() {
   return (
