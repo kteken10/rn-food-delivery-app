@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { Dimensions, FlatList } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -24,7 +24,7 @@ const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 export default function HomeScreen() {
   const scrollY = useSharedValue(0);
   const categories = ['Burger', 'Pizza', 'Thai', 'Sushi'];
-
+  const screenWidth = Dimensions.get('window').width;
   const products = [
     { name: 'Cheeseburger', time: '20 min', rating: 4.8, price: '$6.00', image: require('../../../assets/burger.png'), orderf: 500 },
     { name: 'Latte', time: '15 min', rating: 4.5, price: '$4.00', image: require('../../../assets/coffee.png'), orderf: 500 },
@@ -167,7 +167,7 @@ export default function HomeScreen() {
   };
 
   return (
-    <View className='flex-1 bg-neutral-100'>
+    <View className='flex-1 bg-quadrary-700'>
       <View className='mx-4 mt-2'>
         <View className="flex-row justify-between items-center mt-2">
           <Text className="text-2xl font-bold">Good Morning</Text>
@@ -189,13 +189,20 @@ export default function HomeScreen() {
               </Animated.View>
 
 
+
               <Animated.View style={categoryStyle}>
-                <View className="flex-row w-full mt-4">
-                  {categories.map((item) => (
-                    <CategoryCard key={item} name={item} />
-                  ))}
-                </View>
+                <FlatList
+                  horizontal
+                  data={categories}
+                  keyExtractor={(item) => item}
+                  renderItem={({ item }) => (
+                    <CategoryCard name={item} width={screenWidth / 4} />
+                  )}
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={{ marginTop: 16 }}
+                />
               </Animated.View>
+
 
 
               <View className="flex-row items-center justify-between mt-4 mx-4">

@@ -4,11 +4,15 @@ import { Ionicons } from '@expo/vector-icons';
 
 type CategoryCardProps = {
   name: string;
+  width?: number;
 };
 
-export default function CategoryCard({ name }: CategoryCardProps) {
+export default function CategoryCard({ name, width }: CategoryCardProps) {
   return (
-    <TouchableOpacity className="w-1/4 h-20 bg-neutral-200 rounded-xl items-center justify-center mx-1">
+    <TouchableOpacity
+      className="h-20 bg-neutral-200 rounded-xl items-center justify-center mx-1 gap-2"
+      style={{ width }}
+    >
       <Ionicons name="fast-food-outline" size={24} color="#FF8800" />
       <Text className='text-neutral-600'>{name}</Text>
     </TouchableOpacity>

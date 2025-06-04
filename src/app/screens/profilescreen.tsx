@@ -1,14 +1,11 @@
 import React from 'react';
 import {
-  View,
-  Text,
+
   StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-  SafeAreaView,
-  FlatList
+  FlatList,
+  Dimensions
 } from 'react-native';
+import { View, Text, Image, SafeAreaView, TouchableOpacity, ScrollView, } from '@/components/ui';
 import { Ionicons } from '@expo/vector-icons';
 import CategoryCard from '@/components/category-card';
 
@@ -16,104 +13,92 @@ const ProfileScreen = ({ navigation }: any) => {
   // Données simulées pour les méthodes de paiement
   const paymentMethods = [];
   const categories = ['Orders', 'Saved', 'Favourite', 'Address'];
-
+  const screenWidth = Dimensions.get('window').width;
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView style={styles.container}>
-        {/* En-tête du profil */}
-        <View style={styles.profileHeader}>
-          <View style={styles.profileInfo}>
-            <Image
-              source={{ uri: 'https://randomuser.me/api/portraits/men/32.jpg' }}
-              style={styles.profileImage}
-            />
-            <View style={styles.profileText}>
-              <Text style={styles.name}>Alex Carry</Text>
-              <Text style={styles.email}>alexcarry32@gmail.com</Text>
+    <SafeAreaView className='flex-1 bg-white'>
+
+      {/* En-tête du profil */}
+      <View style={styles.profileHeader}>
+        <View style={styles.profileInfo}>
+          <Image
+            source={{ uri: 'https://randomuser.me/api/portraits/men/9.jpg' }}
+            style={styles.profileImage}
+          />
+          <View style={styles.profileText}>
+            <Text style={styles.name}>Alex Carry</Text>
+            <Text style={styles.email}>alexcarry9@gmail.com</Text>
+          </View>
+        </View>
+      </View>
+
+
+      <View className='mx-4'>
+        <FlatList
+          horizontal
+          data={categories}
+          keyExtractor={(item) => item}
+          renderItem={({ item }) => (
+            <CategoryCard name={item} width={screenWidth / 4} />
+          )}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ marginTop: 16 }}
+        />
+      </View>
+
+      {/* Section Paiement */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Payment</Text>
+        <View style={styles.sectionContent}>
+          <Text style={styles.sectionItemTitle}>Payment Method</Text>
+          {paymentMethods.length === 0 ? (
+            <TouchableOpacity
+              style={styles.addButton}
+              onPress={() => navigation.navigate('AddPayment')}
+            >
+              <Ionicons name="add" size={22} color="#007AFF" />
+              <Text style={styles.addButtonText}>Add Payment Method</Text>
+            </TouchableOpacity>
+          ) : (
+            <View>
+              {/* Afficher les méthodes de paiement ici si elles existent */}
             </View>
-          </View>
+          )}
         </View>
+      </View>
 
-        {/* Barre d'onglets */}
-        {/* <View style={styles.tabsContainer}>
-          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Orders')}>
-            <Text style={styles.tabText}>Orders</Text>
+      {/* Section Générale */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>General</Text>
+        <View style={styles.sectionContent}>
+          <TouchableOpacity style={styles.sectionItem}>
+            <Text style={styles.sectionItemTitle}>Gift Cards</Text>
+            <Ionicons name="chevron-forward" size={20} color="#ccc" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Saved')}>
-            <Text style={styles.tabText}>Saved</Text>
+
+          <TouchableOpacity style={styles.sectionItem}>
+            <Text style={styles.sectionItemTitle}>Order Push Notifications</Text>
+            <Ionicons name="chevron-forward" size={20} color="#ccc" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Favourite')}>
-            <Text style={styles.tabText}>Favourite</Text>
+
+          <TouchableOpacity style={styles.sectionItem}>
+            <Text style={styles.sectionItemTitle}>Making Push Notifications</Text>
+            <Ionicons name="chevron-forward" size={20} color="#ccc" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Address')}>
-            <Text style={styles.tabText}>Address</Text>
+
+          <TouchableOpacity style={[styles.sectionItem, { borderBottomWidth: 0 }]}>
+            <Text style={styles.sectionItemTitle}>Sms Notifications</Text>
+            <Ionicons name="chevron-forward" size={20} color="#ccc" />
           </TouchableOpacity>
-        </View> */}
-        <View className="flex-row w-full mt-4">
-          {categories.map((item) => (
-            <CategoryCard key={item} name={item} />
-          ))}
         </View>
+      </View>
 
-        {/* Section Paiement */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Payment</Text>
-          <View style={styles.sectionContent}>
-            <Text style={styles.sectionItemTitle}>Payment Method</Text>
-            {paymentMethods.length === 0 ? (
-              <TouchableOpacity
-                style={styles.addButton}
-                onPress={() => navigation.navigate('AddPayment')}
-              >
-                <Ionicons name="add" size={22} color="#007AFF" />
-                <Text style={styles.addButtonText}>Add Payment Method</Text>
-              </TouchableOpacity>
-            ) : (
-              <View>
-                {/* Afficher les méthodes de paiement ici si elles existent */}
-              </View>
-            )}
-          </View>
-        </View>
-
-        {/* Section Générale */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>General</Text>
-          <View style={styles.sectionContent}>
-            <TouchableOpacity style={styles.sectionItem}>
-              <Text style={styles.sectionItemTitle}>Gift Cards</Text>
-              <Ionicons name="chevron-forward" size={20} color="#ccc" />
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.sectionItem}>
-              <Text style={styles.sectionItemTitle}>Order Push Notifications</Text>
-              <Ionicons name="chevron-forward" size={20} color="#ccc" />
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.sectionItem}>
-              <Text style={styles.sectionItemTitle}>Making Push Notifications</Text>
-              <Ionicons name="chevron-forward" size={20} color="#ccc" />
-            </TouchableOpacity>
-
-            <TouchableOpacity style={[styles.sectionItem, { borderBottomWidth: 0 }]}>
-              <Text style={styles.sectionItemTitle}>Sms Notifications</Text>
-              <Ionicons name="chevron-forward" size={20} color="#ccc" />
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: '#f8f8f8',
-  },
-  container: {
-    flex: 1,
-  },
+
+
   profileHeader: {
     backgroundColor: '#fff',
     padding: 20,
