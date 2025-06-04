@@ -1,11 +1,12 @@
 // bottom_nav.tsx
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
 
+import { Home, Location, User, ReceiptItem } from 'iconsax-react-nativejs';
 
 import HomeScreen from './screens/homescreen';
 import { View } from '@/components/ui';
+import ProfileScreen from './screens/profilescreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -38,7 +39,7 @@ export default function BottomNav() {
         options={{
           tabBarIcon: ({ focused, color }) => (
             <View className={focused ? 'bg-white w-10 h-10 rounded-full justify-center  items-center ' : ''} >
-              <Ionicons name="home-outline" size={24} color={color} />
+              <Home size={24} color={color} variant='Bold' />
             </View>
           )
         }}
@@ -48,8 +49,8 @@ export default function BottomNav() {
         component={HomeScreen}
         options={{
           tabBarIcon: ({ focused, color }) => (
-            <View className={focused ? 'bg-white w-10 h-40 rounded-full justify-center  items-center ' : ''} >
-              <Ionicons name="heart-outline" size={24} color={color} />
+            <View className={focused ? 'bg-white w-10 h-10 rounded-full justify-center  items-center ' : ''} >
+              <Location size={24} color={color} variant='Bold' />
             </View>
           )
         }}
@@ -59,19 +60,19 @@ export default function BottomNav() {
         component={HomeScreen}
         options={{
           tabBarIcon: ({ focused, color }) => (
-            <View className={focused ? 'bg-white w-10 h-40 rounded-full justify-center  items-center ' : ''} >
-              <Ionicons name="cart-outline" size={24} color={color} />
+            <View className={focused ? 'bg-white w-10 h-10 rounded-full justify-center  items-center ' : ''} >
+              <ReceiptItem size={24} color={color} variant='Bold' />
             </View>
           )
         }}
       />
       <Tab.Screen
         name="Profile"
-        component={HomeScreen}
+        component={ProfileScreen}
         options={{
           tabBarIcon: ({ focused, color }) => (
-            <View className={focused ? 'bg-white w-10 h-40 rounded-full justify-center  items-center ' : ''} >
-              <Ionicons name="person-outline" size={24} color={color} />
+            <View className={focused ? 'bg-white w-10 h-10 rounded-full justify-center  items-center ' : ''} >
+              <User size={24} color={color} variant='Bold' />
             </View>
           )
         }}

@@ -188,16 +188,15 @@ export default function HomeScreen() {
                 <DailyPromoCard />
               </Animated.View>
 
+
               <Animated.View style={categoryStyle}>
-                <FlatList
-                  horizontal
-                  data={categories}
-                  keyExtractor={(item) => item}
-                  renderItem={({ item }) => <CategoryCard key={item} name={item} />}
-                  showsHorizontalScrollIndicator={false}
-                  contentContainerStyle={{ marginTop: 16 }}
-                />
+                <View className="flex-row w-full mt-4">
+                  {categories.map((item) => (
+                    <CategoryCard key={item} name={item} />
+                  ))}
+                </View>
               </Animated.View>
+
 
               <View className="flex-row items-center justify-between mt-4 mx-4">
                 <Text className="text-xl font-bold mb-2">Grab Coffee And Tea</Text>
