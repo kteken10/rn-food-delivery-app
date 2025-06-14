@@ -11,7 +11,7 @@ import FlashMessage from 'react-native-flash-message';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 
-import { APIProvider } from '@/api';
+// import { APIProvider } from '@/api';
 import { hydrateAuth, loadSelectedTheme } from '@/lib';
 import { useThemeConfig } from '@/lib/use-theme-config';
 import { Provider as PaperProvider } from 'react-native-paper';
@@ -54,12 +54,12 @@ function Providers({ children }: { children: React.ReactNode }) {
     >
       <KeyboardProvider>
         <ThemeProvider value={theme}>
-          <APIProvider>
-            <BottomSheetModalProvider>
-              {children}
-              <FlashMessage position="top" />
-            </BottomSheetModalProvider>
-          </APIProvider>
+          {/* <APIProvider> */}
+          <BottomSheetModalProvider>
+            {children}
+            <FlashMessage position="top" />
+          </BottomSheetModalProvider>
+          {/* </APIProvider> */}
         </ThemeProvider>
       </KeyboardProvider>
     </GestureHandlerRootView>

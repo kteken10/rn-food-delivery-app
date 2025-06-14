@@ -18,7 +18,7 @@ export default function RecommandedCard({ name, rating, price, image, adress }: 
         <Image
           source={image}
 
-          style={{ width: '33%', height: 96, resizeMode: 'contain' }} // 96 = 24 * 4 (h-24)
+          style={{ width: '33%', height: 96, resizeMode: 'contain' }}
         />
         <View className="pl-4 flex-1">
 
@@ -40,8 +40,7 @@ export default function RecommandedCard({ name, rating, price, image, adress }: 
 
           </View>
 
-/* The commented out code block you provided is a section of JSX code that seems to be a
-          button for adding an item to a shopping cart. Let me break it down for you: */
+
 
           <View className="flex-row items-center justify-between mt-2">
             <Text className="font-bold">{price}</Text>

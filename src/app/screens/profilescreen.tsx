@@ -10,14 +10,13 @@ import { Ionicons } from '@expo/vector-icons';
 import CategoryCard from '@/components/category-card';
 
 const ProfileScreen = ({ navigation }: any) => {
-  // Données simulées pour les méthodes de paiement
   const paymentMethods = [];
   const categories = ['Orders', 'Saved', 'Favourite', 'Address'];
   const screenWidth = Dimensions.get('window').width;
   return (
     <SafeAreaView className='flex-1 bg-white'>
 
-      {/* En-tête du profil */}
+
       <View style={styles.profileHeader}>
         <View style={styles.profileInfo}>
           <Image
@@ -60,7 +59,7 @@ const ProfileScreen = ({ navigation }: any) => {
             </TouchableOpacity>
           ) : (
             <View>
-              {/* Afficher les méthodes de paiement ici si elles existent */}
+
             </View>
           )}
         </View>
