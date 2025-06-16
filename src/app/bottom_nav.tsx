@@ -21,7 +21,7 @@ export default function BottomNav() {
           marginHorizontal: 16,
           borderRadius: 50,
           height: 65,
-          // position: 'absolute',
+
           bottom: 0,
           borderTopWidth: 0,
 
@@ -29,8 +29,8 @@ export default function BottomNav() {
         tabBarIconStyle: {
           marginTop: 13,
         },
-        tabBarActiveTintColor: 'black', // Couleur des icones actives
-        tabBarInactiveTintColor: 'white', // Couleur des icones inactives
+        tabBarActiveTintColor: 'black',
+        tabBarInactiveTintColor: 'white',
       }}
     >
       <Tab.Screen

@@ -19,18 +19,22 @@ import Animated, {
   withDelay,
 } from 'react-native-reanimated';
 import { SearchStatus, ShoppingCart } from 'iconsax-react-nativejs';
-import { Text, View } from '@/components/ui';
-import colors from '../../components/ui/colors';
+import { Text, View, Image } from '@/components/ui';
+import colors from '@/components/ui/colors';
 import CategoryCard from '@/components/category-card';
 import ProductCard from '@/components/product-card';
 import LocationSelector from '@/components/location-selector';
 import RecommandedCard from '@/components/recomanded-card';
 import DailyPromoCard from '@/components/daily-promo-cart.tsx';
 import { Product, products, recommandedProducts } from '@/data/product';
-import { ProductModal, useProductModal } from '@/components/product_detail';
+import { AnimatedModal } from '@/components/product_detail_modale';
+import { FloatingModal } from '@/components/floating_modale';
+import { LiquidGlassModal } from '@/components/ui/liquid_glass';
+
+
 
 interface RecommandedProduct extends Product {
-  adress: string;
+  address: string;
 }
 
 type AnimatedProductCardProps = {
@@ -52,7 +56,7 @@ const screenWidth = Dimensions.get('window').width;
 
 const HomeScreen: React.FC = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const { ref: productModalRef, present: presentProductModal } = useProductModal();
+  const [modalVisible, setModalVisible] = useState(false);
   const scrollY = useSharedValue<number>(0);
 
   const categories: string[] = ['Burger', 'Pizza', 'Thai', 'Sushi'];
@@ -65,38 +69,31 @@ const HomeScreen: React.FC = () => {
 
   const handleProductPress = (product: Product) => {
     setSelectedProduct(product);
-    presentProductModal();
+    setModalVisible(true);
   };
 
   const handleAddToCart = () => {
-    // Logique pour ajouter au panier
     console.log('Product added to cart:', selectedProduct);
+    setModalVisible(false);
+
   };
 
   const promoCardStyle = useAnimatedStyle(() => ({
     opacity: interpolate(scrollY.value, [0, 80], [1, 0], Extrapolate.CLAMP),
     transform: [
-      {
-        translateY: interpolate(scrollY.value, [0, 100], [0, -40], Extrapolate.CLAMP)
-      },
-      {
-        rotate: `${interpolate(scrollY.value, [0, 100], [0, 15], Extrapolate.CLAMP)}deg`
-      }
+      { translateY: interpolate(scrollY.value, [0, 100], [0, -40], Extrapolate.CLAMP) },
+      { rotate: `${interpolate(scrollY.value, [0, 100], [0, 15], Extrapolate.CLAMP)}deg` }
     ]
   }));
 
   const categoryStyle = useAnimatedStyle(() => ({
-    transform: [{
-      scale: interpolate(scrollY.value, [0, 50], [1, 0.95], Extrapolate.CLAMP)
-    }],
+    transform: [{ scale: interpolate(scrollY.value, [0, 50], [1, 0.95], Extrapolate.CLAMP) }],
     opacity: interpolate(scrollY.value, [0, 100], [1, 0.9], Extrapolate.CLAMP)
   }));
 
   const stickyHeaderStyle = useAnimatedStyle(() => ({
     opacity: interpolate(scrollY.value, [300, 350], [0, 1], Extrapolate.CLAMP),
-    transform: [{
-      translateY: interpolate(scrollY.value, [300, 350], [20, 0], Extrapolate.CLAMP)
-    }]
+    transform: [{ translateY: interpolate(scrollY.value, [300, 350], [20, 0], Extrapolate.CLAMP) }]
   }));
 
   const AnimatedProductCard: React.FC<AnimatedProductCardProps> = ({ item, index }) => {
@@ -108,9 +105,7 @@ const HomeScreen: React.FC = () => {
 
     const productStyle = useAnimatedStyle(() => ({
       opacity: productOpacity.value,
-      transform: [{
-        translateY: interpolate(productOpacity.value, [0, 1], [20, 0], Extrapolate.CLAMP)
-      }],
+      transform: [{ translateY: interpolate(productOpacity.value, [0, 1], [20, 0], Extrapolate.CLAMP) }],
     }));
 
     return (
@@ -131,9 +126,7 @@ const HomeScreen: React.FC = () => {
 
     const cardStyle = useAnimatedStyle(() => ({
       opacity: cardOpacity.value,
-      transform: [{
-        translateX: interpolate(cardOpacity.value, [0, 1], [50, 0], Extrapolate.CLAMP)
-      }],
+      transform: [{ translateX: interpolate(cardOpacity.value, [0, 1], [50, 0], Extrapolate.CLAMP) }],
     }));
 
     return (
@@ -182,7 +175,7 @@ const HomeScreen: React.FC = () => {
         className='mx-4 mb-4 bg-neutral-100 pt-2 z-10'
         style={stickyHeaderStyle}
       >
-        <Text className='text-xl font-bold'>Recommanded</Text>
+        <Text className='text-xl font-bold'>Recommended</Text>
       </Animated.View>
 
       <View className='flex-1 w-full px-4'>
@@ -198,7 +191,7 @@ const HomeScreen: React.FC = () => {
   );
 
   return (
-    <View className='flex-1 bg-quadrary-300'>
+    <View className='flex-1 bg-quadrary-400'>
       <View className='mx-4 mt-2'>
         <View className="flex-row justify-between items-center mt-2">
           <Text className="text-2xl font-bold">Good Morning</Text>
@@ -217,13 +210,34 @@ const HomeScreen: React.FC = () => {
         scrollEventThrottle={16}
       />
 
-      {selectedProduct && (
-        <ProductModal
-          ref={productModalRef}
-          product={selectedProduct}
-          onAddToCart={handleAddToCart}
-        />
-      )}
+      <LiquidGlassModal
+        visible={modalVisible}
+        title={selectedProduct?.name}
+        onClose={() => setModalVisible(false)}
+      >
+        {selectedProduct && (
+          <View className="items-center">
+            <Image
+              source={selectedProduct.image}
+              className="w-full h-48 rounded-lg mb-4"
+            />
+            <View className="flex-row justify-between w-full mb-2">
+              <Text className="text-lg font-semibold">{selectedProduct.price}</Text>
+              <Text className="text-white">★ {selectedProduct.rating}</Text>
+            </View>
+            <Text className="text-neutral-200 mb-6 text-center">
+              {selectedProduct.description}
+            </Text>
+
+            <Pressable
+              className="border border-white/70 py-3 px-6  rounded-full w-full items-center"
+              onPress={handleAddToCart}
+            >
+              <Text className="text-white font-bold">Add to Cart</Text>
+            </Pressable>
+          </View>
+        )}
+      </LiquidGlassModal>
     </View>
   );
 };

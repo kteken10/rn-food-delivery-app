@@ -44,7 +44,7 @@ const ProfileScreen = ({ navigation }: any) => {
         />
       </View>
 
-      {/* Section Paiement */}
+
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Payment</Text>
         <View style={styles.sectionContent}>
@@ -65,7 +65,7 @@ const ProfileScreen = ({ navigation }: any) => {
         </View>
       </View>
 
-      {/* Section Générale */}
+
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>General</Text>
         <View style={styles.sectionContent}>
