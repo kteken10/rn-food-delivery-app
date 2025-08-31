@@ -14,7 +14,7 @@ export default function CategoryCard({ name, width }: CategoryCardProps) {
       style={{ width }}
     >
       <Ionicons name="fast-food-outline" size={24} color="#FF8800" />
-      <Text className='text-neutral-600'>{name}</Text>
+      <Text className='text-neutral-700'>{name}</Text>
     </TouchableOpacity>
   );
 }

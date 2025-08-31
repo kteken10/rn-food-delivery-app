@@ -7,38 +7,42 @@ interface RecommandedCardProps {
   name: string;
   rating: number;
   price: string | number;
-  adress?: string;
+  address?: string;
   image: ImageSourcePropType;
 }
 
-export default function RecommandedCard({ name, rating, price, image, adress }: RecommandedCardProps) {
+export default function RecommandedCard({ name, rating, price, image, address }: RecommandedCardProps) {
   return (
-    <View className="bg-white rounded-2xl p-4 mb-4  w-full">
+    <View className="bg-white rounded-2xl px-4 mb-4 py-2 w-full">
       <View className="flex-row items-center w-full">
         <Image
           source={image}
 
-          style={{ width: '33%', height: 96, resizeMode: 'contain' }}
+          style={{ width: '33%', height: 100, resizeMode: 'contain' }}
         />
         <View className="pl-4 flex-1">
 
-          <View className='flex-row justify-between items-center'>   <Text className="font-bold my-1 text-lg">{name}</Text>
+          <View className='flex-row justify-between items-center'>   <Text className="font-bold my-1 text-xm">{name}</Text>
 
 
-            <View className='ml-2 flex-row  h-7 border border-neutral-400 px-2 rounded-full items-center '>
+            <View className='ml-2 flex-row  h-7 border border-quadrary-500 px-2 rounded-full items-center '>
               <Star1 color={colors.primary[500]} size={15} variant='Bulk' />
               <Text className='text-sm'> {rating}</Text>
             </View>
 
 
           </View>
+          <View className='flex-row justify-between items-center'>   <Text className="font-bold my-1 text-sm text-quadrary-600">{address}</Text>
 
 
 
-          <View className="flex-row items-center justify-between mt-2">
-            <Text className="font-bold text-neutral-400">{adress}</Text>
+
 
           </View>
+
+
+
+
 
 
 
