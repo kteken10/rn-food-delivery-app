@@ -1,4 +1,4 @@
-// Import  global CSS file
+// Import global CSS file
 import '../../global.css';
 
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
@@ -10,22 +10,25 @@ import { StyleSheet } from 'react-native';
 import FlashMessage from 'react-native-flash-message';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
+import { Provider as PaperProvider } from 'react-native-paper';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 // import { APIProvider } from '@/api';
 import { hydrateAuth, loadSelectedTheme } from '@/lib';
 import { useThemeConfig } from '@/lib/use-theme-config';
-import { Provider as PaperProvider } from 'react-native-paper';
+
 export { ErrorBoundary } from 'expo-router';
 
 export const unstable_settings = {
   initialRouteName: 'bottom_nav',
 };
 
+// Initialisation globale
 hydrateAuth();
 loadSelectedTheme();
-// Prevent the splash screen from auto-hiding before asset loading is complete.
+
+// Empêche le splash de disparaître automatiquement
 SplashScreen.preventAutoHideAsync();
-// Set the animation options. This is optional.
 SplashScreen.setOptions({
   duration: 500,
   fade: true,
@@ -35,10 +38,8 @@ export default function RootLayout() {
   return (
     <Providers>
       <PaperProvider>
-        {/* The Stack component is used to define the navigation structure */}
         <Stack>
           <Stack.Screen name="bottom_nav" options={{ headerShown: false }} />
-
         </Stack>
       </PaperProvider>
     </Providers>
@@ -47,27 +48,34 @@ export default function RootLayout() {
 
 function Providers({ children }: { children: React.ReactNode }) {
   const theme = useThemeConfig();
+
   return (
-    <GestureHandlerRootView
-      style={styles.container}
-      className={theme.dark ? `dark` : undefined}
-    >
-      <KeyboardProvider>
-        <ThemeProvider value={theme}>
-          {/* <APIProvider> */}
-          <BottomSheetModalProvider>
-            {children}
-            <FlashMessage position="top" />
-          </BottomSheetModalProvider>
-          {/* </APIProvider> */}
-        </ThemeProvider>
-      </KeyboardProvider>
-    </GestureHandlerRootView>
+    <SafeAreaProvider>
+      <GestureHandlerRootView
+        style={styles.container}
+        className={theme.dark ? `dark` : undefined}
+      >
+        <KeyboardProvider>
+          <ThemeProvider value={theme}>
+            <BottomSheetModalProvider>
+              <SafeAreaView style={styles.safeArea} edges={['top', 'bottom', 'left', 'right']}>
+                {children}
+                <FlashMessage position="top" />
+              </SafeAreaView>
+            </BottomSheetModalProvider>
+          </ThemeProvider>
+        </KeyboardProvider>
+      </GestureHandlerRootView>
+    </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#fff', // tu peux adapter selon ton thème
   },
 });

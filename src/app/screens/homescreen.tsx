@@ -160,15 +160,15 @@ const HomeScreen: React.FC = () => {
           <Text className="text-xl font-bold mb-2">Grab Coffee And Tea</Text>
           <Text className="text-primary-400">See All</Text>
         </View>
+        <View className="flex-row flex-wrap justify-between">
+          {products.map((item, index) => (
+            <View key={item.id} className="w-1/2 p-2">
+              <AnimatedProductCard item={item} index={index} />
+            </View>
+          ))}
+        </View>
 
-        <FlatList
-          data={products}
-          keyExtractor={(item) => item.id}
-          numColumns={2}
-          renderItem={({ item, index }) => <AnimatedProductCard item={item} index={index} />}
-          showsVerticalScrollIndicator={false}
-          scrollEnabled={false}
-        />
+
       </View>
 
       <Animated.View
@@ -191,13 +191,20 @@ const HomeScreen: React.FC = () => {
   );
 
   return (
-    <View className='flex-1 bg-quadrary-400'>
+    <View className='flex-1 bg-quadrary-300'>
       <View className='mx-4 mt-2'>
         <View className="flex-row justify-between items-center mt-2">
           <Text className="text-2xl font-bold">Good Morning</Text>
           <View className="flex-row gap-8">
-            <SearchStatus size={18} color={colors.neutral[700]} variant="Outline" />
-            <ShoppingCart size={18} color={colors.primary[400]} variant="Bulk" />
+            <View className="flex-row gap-4">
+              <View className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md">
+                <SearchStatus size={18} color={colors.neutral[700]} variant="Outline" />
+              </View>
+              <View className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md">
+                <ShoppingCart size={18} color={colors.primary[400]} variant="Bulk" />
+              </View>
+            </View>
+
           </View>
         </View>
         <LocationSelector />

@@ -10,7 +10,7 @@ type CategoryCardProps = {
 export default function CategoryCard({ name, width }: CategoryCardProps) {
   return (
     <TouchableOpacity
-      className="h-20 bg-neutral-200 rounded-xl items-center justify-center mx-1 gap-2"
+      className="h-20 bg-quadrary-400 rounded-xl items-center justify-center mx-1 gap-4"
       style={{ width }}
     >
       <Ionicons name="fast-food-outline" size={24} color="#FF8800" />

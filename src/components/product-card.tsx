@@ -12,29 +12,33 @@ interface ProductCardProps {
 }
 export default function ProductCard({ name, time, rating, price, image, orderf }: ProductCardProps) {
   return (
-    <View className="bg-slate-950 rounded-2xl p-4 mb-4 shadow-sm shadow-black/5 mx-2 flex-1">
+    <View className="bg-white rounded-2xl p-4 mb-4 w-full">
       <Image
         source={image}
         className="w-full h-24 object-contain"
       />
 
-      <Text className="font-bold my-1 text-lg">{name}</Text>
+      <Text className="font-bold my-1 text-xm">{name}</Text>
       <View className='flex-row  justify-between '>
-        <Text className="text-neutral-400">{time}</Text>
+        <Text className="text-neutral-400 text-sm" >{time}</Text>
         <Star1 color={colors.primary[500]} size={20} variant='Bulk'></Star1>
         <Text> {rating}</Text>
         <Text className="text-neutral-400 " >({orderf} +)</Text>
       </View>
+      <View className="flex-row items-center justify-center mt-2 space-x-4">
+        {/* Prix */}
+        <Text className="font-bold text-lg">{price}</Text>
 
-      <View className="flex-row items-center justify-between mt-2">
-        <Text className="font-bold">{price}</Text>
-        <TouchableOpacity className="bg-primary-500 h-8 flex-row py-2 rounded-full items-center ml-2 px-2 ">
-          <Text className="text-white text-sm">Add to cart</Text>
-          <View className='bg-white w-6 h-6 ml-1 rounded-full  items-center justify-center'>
-            <ShoppingCart size={16} color={colors.primary[500]} variant='Bulk' />
+        {/* Bouton Add to Cart avec icône */}
+        <TouchableOpacity className="bg-primary-500 flex-row items-center rounded-full px-4 h-10">
+          <Text className="text-white text-sm font-medium">Add to cart</Text>
+          <View className="bg-white w-6 h-6 ml-2 rounded-full flex items-center justify-center">
+            <ShoppingCart size={16} color={colors.primary[500]} variant="Bulk" />
           </View>
         </TouchableOpacity>
       </View>
+
+
     </View>
   );
 }
